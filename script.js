@@ -123,7 +123,7 @@ function removeLastAlert()
 
 function addLetter(char)
 {
-    if (guessWord.length < 5 || GameOver)
+    if (guessWord.length < 5 && !GameOver)
     {
         guessWord.push(char);
         updateCell();
@@ -277,4 +277,5 @@ function main()
 
 window.onload = () => {
     main();
+
 }
