@@ -23,6 +23,7 @@ export function eval_word(guess)
 
 export function search_for_word(gray_letters, yellow_letters_history, green_letters)
 {
+    const blank_word = ['.', '.', '.', '.', '.']
     const grey_letters_search =  new RegExp(`[${gray_letters.join("")}]`, "i")
     const green_letters_search = new RegExp(green_letters.join(""), "i")
 
@@ -43,23 +44,37 @@ export function search_for_word(gray_letters, yellow_letters_history, green_lett
         {
             continue
         }
-        console.log(guess)
+
         const yellow_letters = guess.replaceAll('.', '')
-        const yellow_position = new RegExp(guess, 'i')
+        const yellow_positions = []
+        
+        for (let l in yellow_letters)
+        {
+            const lett = yellow_letters[l]
+            const index = guess.indexOf(lett)
+            let b = [...blank_word]
+            b[index] = lett
+            yellow_positions.push(b.join(""))
+        }
+
         filtered_words_from_yellow = filtered_words_from_yellow.filter((word) => {
-            if (word.search(yellow_position) == -1)
+            for (let p in yellow_positions)
             {
-                for (let i in yellow_letters)
+                const pl = new RegExp(yellow_positions[p], 'i')
+                if (word.search(pl) != -1)
                 {
-                    const desired_letter = yellow_letters[i].toLowerCase()
-                    if(!word.includes(desired_letter))
-                    {
-                        return false
-                    }
+                    return false
                 }
-                return true
             }
-            return false
+            for (let pa in yellow_letters)
+            {
+                const pb = yellow_letters[pa].toLowerCase()
+                if (!word.includes(pb))
+                {
+                    return false
+                }
+            }
+            return true
         })
     }
 
