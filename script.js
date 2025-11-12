@@ -102,7 +102,13 @@ function convertRow()
             yellowWord[letters] = letter
             clearedLetters.push(letter)
         }
-        else if (!clearedLetters.includes(letter))
+    }
+    for (let letters = 0; letters < cells.length; letters++)
+    {
+        const cell = cells[letters]
+        const colour = cell.className
+        const letter = cell.innerHTML
+        if (colour == "gray" && !clearedLetters.includes(letter))
         {
             grayChars.push(letter)
         }
@@ -279,3 +285,4 @@ window.onload = () => {
     main();
 
 }
+
