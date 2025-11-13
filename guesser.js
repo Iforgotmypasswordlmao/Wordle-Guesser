@@ -14,7 +14,7 @@ export function eval_word(guess)
         dupe_counter[letter] += 1
         if (dupe_counter[letter] > 1)
         {
-            eval_sum += 10
+            eval_sum += 20
         }
         eval_sum += letter_frequency_rank[letter]
     }
@@ -86,4 +86,5 @@ export function sort_by_score(word_list)
 {
     return word_list.sort((a, b) => (eval_word(a) - eval_word(b)))
 }
+
 
